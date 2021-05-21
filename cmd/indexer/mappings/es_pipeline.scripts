@@ -51,3 +51,10 @@ PUT _component_template/block-mappings
     "priority": 500,
     "composed_of": [ "txn_info-mappings" ]
   }
+
+   PUT _index_template/txn_new-template
+    {
+      "index_patterns": ["*.txn_infos_new"],
+      "priority": 500,
+      "composed_of": [ "txn_info_new-mappings" ]
+    }
