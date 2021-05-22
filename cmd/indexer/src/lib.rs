@@ -161,3 +161,44 @@ mod tests {
         assert_eq!(serde_json::to_string(&v).unwrap().as_str(), expected.trim());
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::{TransactionInfoEsView, TransactionVMStatusEsView};
+    use starcoin_rpc_api::types::StrView;
+
+    #[test]
+    fn test_info_view() {
+        let v = TransactionInfoEsView {
+            block_hash: Default::default(),
+            block_number: StrView(1),
+            transaction_hash: Default::default(),
+            transaction_index: 0,
+            state_root_hash: Default::default(),
+            event_root_hash: Default::default(),
+            gas_used: StrView(0),
+            status: TransactionVMStatusEsView::Executed,
+        };
+
+        let expected = r#"
+        {"block_hash":"0x0000000000000000000000000000000000000000000000000000000000000000","block_number":"1","transaction_hash":"0x0000000000000000000000000000000000000000000000000000000000000000","transaction_index":0,"state_root_hash":"0x0000000000000000000000000000000000000000000000000000000000000000","event_root_hash":"0x0000000000000000000000000000000000000000000000000000000000000000","gas_used":"0","status":"Executed"}
+        "#;
+        assert_eq!(serde_json::to_string(&v).unwrap().as_str(), expected.trim());
+        let v = TransactionInfoEsView {
+            block_hash: Default::default(),
+            block_number: StrView(1),
+            transaction_hash: Default::default(),
+            transaction_index: 0,
+            state_root_hash: Default::default(),
+            event_root_hash: Default::default(),
+            gas_used: StrView(0),
+            status: TransactionVMStatusEsView::Discard {
+                status_code: StrView(1000),
+            },
+        };
+        let expected = r#"
+        {"block_hash":"0x0000000000000000000000000000000000000000000000000000000000000000","block_number":"1","transaction_hash":"0x0000000000000000000000000000000000000000000000000000000000000000","transaction_index":0,"state_root_hash":"0x0000000000000000000000000000000000000000000000000000000000000000","event_root_hash":"0x0000000000000000000000000000000000000000000000000000000000000000","gas_used":"0","status":"Discard","status_content":{"status_code":"1000"}}
+        "#;
+        assert_eq!(serde_json::to_string(&v).unwrap().as_str(), expected.trim());
+    }
+}

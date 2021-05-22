@@ -45,6 +45,13 @@ PUT _component_template/block-mappings
     "composed_of": ["blocks-settings","block-mappings", "txn_info-mappings" ]
   }
 
+  PUT _index_template/blocks-new-template
+    {
+      "index_patterns": ["*.blocks_new"],
+      "priority": 500,
+      "composed_of": ["blocks-settings","block-mappings", "txn_info_new-mappings" ]
+    }
+
   PUT _index_template/txn-template
   {
     "index_patterns": ["*.txn_infos"],

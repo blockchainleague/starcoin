@@ -206,6 +206,10 @@
           }
         }
       },
+      "status_content": {
+        "type": "object",
+        "dynamic": true
+      },
       "transaction_hash": {
         "type": "text",
         "fields": {

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: starcoin-indexer-deployment
+  name: starcoin-indexer-new-deployment
   namespace: starcoin-halley
   labels:
     app: starcoin-indexer
@@ -21,7 +21,7 @@ spec:
         starcoin/node-pool: seed-pool
       containers:
       - name: starcoin-indexer
-        image: starcoin/starcoin:master
+        image: starcoin/starcoin:feature-indexer_fix
         imagePullPolicy: Always
         command:
           - bash
